@@ -1,0 +1,49 @@
+trigger:
+- main
+
+pool:
+  name: Default
+
+variables:
+  appName: javasimpleapi
+  appPort: '8080'
+  imageTag: $(Build.BuildId)
+
+steps:
+- checkout: self
+
+- script: |
+    set -e
+    echo "Building Docker image..."
+    docker build -t $(appName):$(imageTag) .
+
+  displayName: Build Docker image
+
+- script: |
+    set -e
+    echo "Stop & remove old container (if any)..."
+    docker rm -f $(appName) 2>/dev/null || true
+
+    echo "Starting new container..."
+    docker run -d --name $(appName) \
+      -p $(appPort):8080 \
+      --restart unless-stopped \
+      -e JAVA_OPTS="-Xms256m -Xmx512m" \
+      $(appName):$(imageTag)
+
+    echo "Health check..."
+    for i in {1..30}; do
+      if curl -fsS http://127.0.0.1:$(appPort)/api/hello >/dev/null; then
+        echo "App is up."
+        exit 0
+      fi
+      sleep 1
+    done
+    echo "App did not become healthy" >&2
+    docker logs $(appName) || true
+    exit 1
+  displayName: Run container
+
+- script: |
+    docker image prune -f
+  displayName: Cleanup dangling images
