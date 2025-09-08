@@ -6,7 +6,7 @@ pool:
 
 variables:
   appName: javasimpleapi
-  appPort: '8888'
+  appPort: '80'
   imageTag: $(Build.BuildId)
 
 steps:
