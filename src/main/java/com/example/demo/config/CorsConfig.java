@@ -8,10 +8,24 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@Configuration
-public class CorsConfig {
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-  @Bean
+@Configuration
+public class CorsConfig implements WebMvcConfigurer {
+	
+	@Override
+	  public void addCorsMappings(CorsRegistry registry) {
+	    registry.addMapping("/**")
+	      // allow your Azure Static Web Apps origin (wildcard pattern OK)
+	      .allowedOriginPatterns("https://*.azurestaticapps.net", "http://localhost:*")
+	      .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+	      .allowedHeaders("*")
+	      .allowCredentials(false)   // set true only if you really use cookies/Authorization with credentials
+	      .maxAge(3600);
+	  }
+
+  /* @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration cfg = new CorsConfiguration();
     cfg.setAllowedOrigins(List.of(
@@ -26,5 +40,5 @@ public class CorsConfig {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", cfg);
     return source;
-  }
+  } */
 }
