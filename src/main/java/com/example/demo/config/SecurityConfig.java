@@ -1,0 +1,29 @@
+package com.example.demo.config;
+
+import static org.springframework.security.config.Customizer.withDefaults; // <- static import
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableMethodSecurity
+public class SecurityConfig {
+
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+      .csrf(csrf -> csrf.disable())
+      .cors(withDefaults())
+      .authorizeHttpRequests(auth -> auth
+          .requestMatchers("/actuator/health", "/api/public/**").permitAll()
+          .requestMatchers("/api/hello").hasAuthority("SCOPE_api.user.read") // <- match your scope name
+          .anyRequest().authenticated()
+      )
+      .oauth2ResourceServer(oauth -> oauth.jwt(withDefaults()));
+
+    return http.build();
+  }
+}
