@@ -12,7 +12,8 @@ public class DemoApplication {
 		// cargar variables usando libreria dotenv
 		Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 		// cargo una variable de entorno del propio sistema (util en docker)
-		String issuer = System.getenv("JWT_ISSUER_URI");
+		//String issuer = System.getenv("JWT_ISSUER_URI");
+		String issuer = "";
 		System.out.println(String.format("issue: %s", issuer));
 		// si no se encuentra la variable en el sistema, se carga con la libreria dotenv
 		if (issuer == null) issuer = dotenv.get("JWT_ISSUER_URI");
