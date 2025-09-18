@@ -12,7 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-	private String publicScope = System.getenv("PUBLIC_SCOPE");
+	//private String publicScope = System.getenv("PUBLIC_SCOPE");
+	private String publicScope = "SCOPE_api.user.read";
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
