@@ -21,7 +21,7 @@ public class CorsConfig implements WebMvcConfigurer {
 	      .allowedOriginPatterns("https://*.azurestaticapps.net", "http://localhost:*")
 	      .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
 	      .allowedHeaders("*")
-	      .allowCredentials(false)   // set true only if you really use cookies/Authorization with credentials
+	      .allowCredentials(true)   // set true only if you really use cookies/Authorization with credentials
 	      .maxAge(3600);
 	  }
 

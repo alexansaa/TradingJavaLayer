@@ -8,9 +8,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+	private String publicScope = System.getenv("PUBLIC_SCOPE");
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -19,7 +21,7 @@ public class SecurityConfig {
       .cors(withDefaults())
       .authorizeHttpRequests(auth -> auth
           .requestMatchers("/actuator/health", "/api/public/**").permitAll()
-          .requestMatchers("/api/hello").hasAuthority("SCOPE_api.user.read") // <- match your scope name
+          .requestMatchers("/api/hello").hasAuthority(publicScope) // <- match your scope name
           .anyRequest().authenticated()
       )
       .oauth2ResourceServer(oauth -> oauth.jwt(withDefaults()));

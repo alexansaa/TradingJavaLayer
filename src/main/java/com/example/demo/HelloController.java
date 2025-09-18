@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 public class HelloController {
-	@PreAuthorize("hasAuthority('SCOPE_api.read')")
+	//@PreAuthorize("hasAuthority('SCOPE_api.user.read')")
 	@GetMapping("/api/hello")
 	public Map<String,String> hello() {
 	  return Map.of("message", "secure hello");
