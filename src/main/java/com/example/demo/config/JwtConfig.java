@@ -18,8 +18,8 @@ public class JwtConfig {
 	//private String issuer = System.getenv("JWT_ISSUER_URI");
 	//private static String tradingAud = System.getenv("ACCEPTED_AUD");
 	
-	@Value("${accepted.aud}")
-	private String acceptedAudRaw;
+	//@Value("${accepted.aud}")
+	private String acceptedAudRaw = "03d3f3b8-6d74-49ab-bbe8-981cd5464328";
 	
 	private List<String> acceptedAud;
 
@@ -46,8 +46,8 @@ public class JwtConfig {
 	    return acceptedAud;
 	  }
 	  
-	  @Value("${jwt.issuer.uri}")
-	  private String issuer;
+	  //@Value("${jwt.issuer.uri}")
+	  private String issuer = "https://675a9d31-c4a1-4e9b-bcf6-d0bd1bc0c01f.ciamlogin.com/675a9d31-c4a1-4e9b-bcf6-d0bd1bc0c01f/v2.0";
 
 	  @Bean
 	  JwtDecoder jwtDecoder() {
