@@ -18,7 +18,7 @@ public class JwtConfig {
 	//private String issuer = System.getenv("JWT_ISSUER_URI");
 	//private static String tradingAud = System.getenv("ACCEPTED_AUD");
 	
-	@Value("${accepted.aud:}")
+	@Value("${accepted.aud}")
 	private String acceptedAudRaw;
 	
 	private List<String> acceptedAud;
@@ -46,7 +46,7 @@ public class JwtConfig {
 	    return acceptedAud;
 	  }
 	  
-	  @Value("${jwt.issuer.uri:}")
+	  @Value("${jwt.issuer.uri}")
 	  private String issuer;
 
 	  @Bean
