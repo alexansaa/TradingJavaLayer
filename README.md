@@ -29,6 +29,11 @@ The Java layer is built with Spring Boot and containerized using Docker, followi
 
 This service plays a central role in maintaining data integrity, scalability, and access control across the entire system architecture.
 
+Other repos on the App Stack for this project:
+- [Trading App Front-End](https://github.com/alexansaa/TradingAppFrontEnd)
+- [Trading App Python Layer](https://github.com/alexansaa/TradingPythonLayer)
+- [Trading App Database](https://github.com/alexansaa/Trading-db)
+
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
